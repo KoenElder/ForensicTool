@@ -1,0 +1,11 @@
+C:\Users\elder\Documents\HBO-ICT\jaar 3\Exchange\Modules\Computer Forensics\ForensicTool\ForensicTool\bin\Debug\netcoreapp3.1\ForensicTool.exe
+C:\Users\elder\Documents\HBO-ICT\jaar 3\Exchange\Modules\Computer Forensics\ForensicTool\ForensicTool\bin\Debug\netcoreapp3.1\ForensicTool.deps.json
+C:\Users\elder\Documents\HBO-ICT\jaar 3\Exchange\Modules\Computer Forensics\ForensicTool\ForensicTool\bin\Debug\netcoreapp3.1\ForensicTool.runtimeconfig.json
+C:\Users\elder\Documents\HBO-ICT\jaar 3\Exchange\Modules\Computer Forensics\ForensicTool\ForensicTool\bin\Debug\netcoreapp3.1\ForensicTool.runtimeconfig.dev.json
+C:\Users\elder\Documents\HBO-ICT\jaar 3\Exchange\Modules\Computer Forensics\ForensicTool\ForensicTool\bin\Debug\netcoreapp3.1\ForensicTool.dll
+C:\Users\elder\Documents\HBO-ICT\jaar 3\Exchange\Modules\Computer Forensics\ForensicTool\ForensicTool\bin\Debug\netcoreapp3.1\ForensicTool.pdb
+C:\Users\elder\Documents\HBO-ICT\jaar 3\Exchange\Modules\Computer Forensics\ForensicTool\ForensicTool\obj\Debug\netcoreapp3.1\ForensicTool.AssemblyInfoInputs.cache
+C:\Users\elder\Documents\HBO-ICT\jaar 3\Exchange\Modules\Computer Forensics\ForensicTool\ForensicTool\obj\Debug\netcoreapp3.1\ForensicTool.AssemblyInfo.cs
+C:\Users\elder\Documents\HBO-ICT\jaar 3\Exchange\Modules\Computer Forensics\ForensicTool\ForensicTool\obj\Debug\netcoreapp3.1\ForensicTool.dll
+C:\Users\elder\Documents\HBO-ICT\jaar 3\Exchange\Modules\Computer Forensics\ForensicTool\ForensicTool\obj\Debug\netcoreapp3.1\ForensicTool.pdb
+C:\Users\elder\Documents\HBO-ICT\jaar 3\Exchange\Modules\Computer Forensics\ForensicTool\ForensicTool\obj\Debug\netcoreapp3.1\ForensicTool.csprojAssemblyReference.cache
