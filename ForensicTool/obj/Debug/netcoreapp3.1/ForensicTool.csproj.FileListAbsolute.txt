@@ -8,4 +8,3 @@ C:\Users\elder\Documents\HBO-ICT\jaar 3\Exchange\Modules\Computer Forensics\Fore
 C:\Users\elder\Documents\HBO-ICT\jaar 3\Exchange\Modules\Computer Forensics\ForensicTool\ForensicTool\obj\Debug\netcoreapp3.1\ForensicTool.AssemblyInfo.cs
 C:\Users\elder\Documents\HBO-ICT\jaar 3\Exchange\Modules\Computer Forensics\ForensicTool\ForensicTool\obj\Debug\netcoreapp3.1\ForensicTool.dll
 C:\Users\elder\Documents\HBO-ICT\jaar 3\Exchange\Modules\Computer Forensics\ForensicTool\ForensicTool\obj\Debug\netcoreapp3.1\ForensicTool.pdb
-C:\Users\elder\Documents\HBO-ICT\jaar 3\Exchange\Modules\Computer Forensics\ForensicTool\ForensicTool\obj\Debug\netcoreapp3.1\ForensicTool.csprojAssemblyReference.cache
