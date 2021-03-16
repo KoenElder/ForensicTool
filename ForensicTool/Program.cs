@@ -6,36 +6,93 @@ namespace ForensicTool
     class Program
     {
 
-        static void Main(string[] args) //sample_1.dd als parameter invoegen
+        static void Main(string[] args)
         {
-            if(args.Length == 0)
-            {
-                Console.WriteLine("This Application Needs A File As A Parameter.");
-                Console.WriteLine("Please Execute The Program Again From Command Line With The A Parameter.");
-                Console.ReadLine();
-                Environment.Exit(0);
-            }
-            string filePath = args[0];//@"C:\Users\elder\Documents\HBO-ICT\jaar 3\Exchange\Modules\Computer Forensics\Sample_1.dd";
+            //if(args.Length == 0)
+            //{
+            // Console.WriteLine("This Application Needs A File As A Parameter.");
+            // Console.WriteLine("Please Execute The Program Again From Command Line With The A Parameter.");
+            // Console.ReadLine();
+            // Environment.Exit(0);
+            //} 
+            //string filePath = args[0];
+            string filePath = @"C:\Users\Marle\OneDrive\Documenten\test\Sample_1.dd";
+
             int partitionEntrySize = 16; //for this assignment we will assume that the disk drives are normal MBR's with 16 byte partition entries
             int validPartitions = 4; //standard MBR has 4 partitions
-            File File = new File(filePath);
+            int directoryEntrySize = 32; //standard FAT directory entry size = 32 bytes
+            int sectorSize = 512; //standard FAT sector size = 512 bytes
 
-            for(int PartitionNumber = 0; PartitionNumber < 4; PartitionNumber++)
+            for (int PartitionNumber = 0; PartitionNumber < 4; PartitionNumber++)
             {
-                ////byte offset is standaard 0x1BEh = 446d. plus 4 (byte with partition type).
-                string PartitionType = File.GetValueFromBytes((0x1BE + 4 + (PartitionNumber * partitionEntrySize)), 1);
+                string PartitionType = GetValueFromBytes(filePath, (0x1C2 + (PartitionNumber * partitionEntrySize)), 1);
                 PartitionType = GetDescriptionFromPartitionType(PartitionType);
                 if (PartitionType == "Not-Valid") validPartitions -= 1;
 
-                string PartitionStartingSector = File.GetValueFromBytes((0x1BE + 8 + (PartitionNumber * partitionEntrySize)), 4);
+                string PartitionStartingSector = GetValueFromBytes(filePath, (0x1C6 + (PartitionNumber * partitionEntrySize)), 4);
 
-                string PartitionSize = File.GetValueFromBytes((0x1BE + 0x0C + (PartitionNumber * partitionEntrySize)), 4);
+                string PartitionSize = GetValueFromBytes(filePath, (0x1CA + (PartitionNumber * partitionEntrySize)), 4);
 
-                Console.WriteLine("Partition {0}: Type: {1}     Starting Sector: {2}        Size: {3}", PartitionNumber, PartitionType, PartitionStartingSector, PartitionSize);
+                Console.WriteLine("Partition {0}: Type: {1} Starting Sector: {2} Size: {3}", PartitionNumber, PartitionType, PartitionStartingSector, PartitionSize);
+
+                if (PartitionNumber == 0)
+                {
+                    //phase 2B
+                    // ga naar byteOffset PartitionStartingSector
+                    int PartitionStartingSectorInt = Convert.ToInt32(PartitionStartingSector);
+                    int ByteOffsetPartition1 = Convert.ToInt32(PartitionStartingSector) * 512;
+
+                    string NumberOfSectorsPerCluster = GetValueFromBytes(filePath, (ByteOffsetPartition1 + 0x0D), 1);
+
+                    string NumberOfFATCopies = GetValueFromBytes(filePath, (ByteOffsetPartition1 + 0x10), 1);
+                    string SizeOfFATCopy = GetValueFromBytes(filePath, (ByteOffsetPartition1 + 0x16), 2);
+
+                    int SizeOfFAT = Convert.ToInt32(NumberOfFATCopies) * Convert.ToInt32(SizeOfFATCopy);
+
+                    string SizeOfReservedArea = GetValueFromBytes(filePath, (ByteOffsetPartition1 + 0x0E), 2);
+                    string StartSectorOfRootDirectory = (PartitionStartingSectorInt + SizeOfFAT + Convert.ToInt32(SizeOfReservedArea)).ToString();
+
+                    string MaximumNumberOfRootDirectoryEntries = GetValueFromBytes(filePath, (ByteOffsetPartition1 + 0x11), 2);
+                    string RootDirectorySize = ((Convert.ToInt32(MaximumNumberOfRootDirectoryEntries) * directoryEntrySize) / sectorSize).ToString();
+
+                    string StartingSectorAddressCluster2 = (Convert.ToInt32(StartSectorOfRootDirectory) + Convert.ToInt32(RootDirectorySize)).ToString();
+
+                    Console.WriteLine(" -Number of sectors per cluster: {0}", NumberOfSectorsPerCluster);
+                    Console.WriteLine(" -Size of FAT area (in sectors): {0}", SizeOfFAT);
+                    Console.WriteLine(" -Size of Root Directory (in sectors): {0}", RootDirectorySize);
+                    Console.WriteLine(" -Starting Address of Cluster #2: {0}", StartingSectorAddressCluster2);
+                }
             }
             Console.WriteLine(); //empty line for readability
             Console.WriteLine("Total number of valid partitions is: {0}", validPartitions);
             Console.ReadLine();
+        }
+
+        static public string GetValueFromBytes(string filePath, long byteOffset, int byteLength)
+        {
+            using (FileStream rawImageFileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
+            using (BinaryReader binaryReader = new BinaryReader(rawImageFileStream))
+            {
+                rawImageFileStream.Seek(byteOffset, SeekOrigin.Begin);
+
+                if (byteLength == 1)
+                {
+                    string DecimalValue = binaryReader.ReadByte().ToString("X2");
+                    return DecimalValue;
+                }
+                else
+                {
+                    byte[] bytes = binaryReader.ReadBytes(byteLength);
+                    if (BitConverter.IsLittleEndian)
+                    {
+                        Array.Reverse(bytes);
+                    }
+                    string PartitionStartingSectorHexString = BitConverter.ToString(bytes).Replace("-", string.Empty);
+
+                    int DecimalValue = int.Parse(PartitionStartingSectorHexString, System.Globalization.NumberStyles.HexNumber);
+                    return DecimalValue.ToString();
+                }
+            }
         }
 
         static private string GetDescriptionFromPartitionType(string PartitionType)
@@ -78,48 +135,6 @@ namespace ForensicTool
                     return "HFS and HFS+";
                 default:
                     return "Not Supported In This Forensic Tool";
-            }
-        }
-    }
-
-    class File
-    {
-        public File(string filePath)
-        {
-            FilePath = filePath;
-        }
-        
-        static private string _filePath;
-        public string FilePath
-        {
-            get { return _filePath; }
-            set { _filePath = value; }
-        }
-
-        static public string GetValueFromBytes(long byteOffset, int byteLength)
-        {
-            using (FileStream fsSourceDDS = new FileStream(_filePath, FileMode.Open, FileAccess.Read))
-            using (BinaryReader binaryReader = new BinaryReader(fsSourceDDS))
-            {
-                fsSourceDDS.Seek(byteOffset, SeekOrigin.Begin);
-
-                if(byteLength == 1)
-                {
-                    string PartitionType = binaryReader.ReadByte().ToString("X2");
-                    return PartitionType;
-                }
-                else
-                {
-                    byte[] bytes = binaryReader.ReadBytes(byteLength);
-                    if (BitConverter.IsLittleEndian)
-                    {
-                        Array.Reverse(bytes);
-                    }
-                    string PartitionStartingSectorHexString = BitConverter.ToString(bytes).Replace("-", string.Empty);
-
-                    int DecimalValue = int.Parse(PartitionStartingSectorHexString, System.Globalization.NumberStyles.HexNumber);
-                    return DecimalValue.ToString();
-                }                
             }
         }
     }

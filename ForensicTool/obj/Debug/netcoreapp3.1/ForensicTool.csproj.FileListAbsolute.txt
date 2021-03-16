@@ -8,3 +8,15 @@ C:\Users\elder\Documents\HBO-ICT\jaar 3\Exchange\Modules\Computer Forensics\Fore
 C:\Users\elder\Documents\HBO-ICT\jaar 3\Exchange\Modules\Computer Forensics\ForensicTool\ForensicTool\obj\Debug\netcoreapp3.1\ForensicTool.AssemblyInfo.cs
 C:\Users\elder\Documents\HBO-ICT\jaar 3\Exchange\Modules\Computer Forensics\ForensicTool\ForensicTool\obj\Debug\netcoreapp3.1\ForensicTool.dll
 C:\Users\elder\Documents\HBO-ICT\jaar 3\Exchange\Modules\Computer Forensics\ForensicTool\ForensicTool\obj\Debug\netcoreapp3.1\ForensicTool.pdb
+D:\Github\ForensicTool\ForensicTool\bin\Debug\netcoreapp3.1\ForensicTool.exe
+D:\Github\ForensicTool\ForensicTool\bin\Debug\netcoreapp3.1\ForensicTool.deps.json
+D:\Github\ForensicTool\ForensicTool\bin\Debug\netcoreapp3.1\ForensicTool.runtimeconfig.json
+D:\Github\ForensicTool\ForensicTool\bin\Debug\netcoreapp3.1\ForensicTool.runtimeconfig.dev.json
+D:\Github\ForensicTool\ForensicTool\bin\Debug\netcoreapp3.1\ForensicTool.dll
+D:\Github\ForensicTool\ForensicTool\bin\Debug\netcoreapp3.1\ForensicTool.pdb
+D:\Github\ForensicTool\ForensicTool\obj\Debug\netcoreapp3.1\ForensicTool.AssemblyInfoInputs.cache
+D:\Github\ForensicTool\ForensicTool\obj\Debug\netcoreapp3.1\ForensicTool.AssemblyInfo.cs
+D:\Github\ForensicTool\ForensicTool\obj\Debug\netcoreapp3.1\ForensicTool.csproj.CoreCompileInputs.cache
+D:\Github\ForensicTool\ForensicTool\obj\Debug\netcoreapp3.1\ForensicTool.dll
+D:\Github\ForensicTool\ForensicTool\obj\Debug\netcoreapp3.1\ForensicTool.pdb
+D:\Github\ForensicTool\ForensicTool\obj\Debug\netcoreapp3.1\ForensicTool.genruntimeconfig.cache
